@@ -6,14 +6,17 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "serve:dev": "nodemon --watch api --inspect=0.0.0.0 -L ./api/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "isomorphic-unfetch": "^3.0.0",
     "next": "^9.0.5",
+    "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   }
