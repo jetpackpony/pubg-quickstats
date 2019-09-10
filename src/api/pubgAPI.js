@@ -1,10 +1,9 @@
 import * as R from 'ramda';
-import fetch from 'isomorphic-unfetch';
 
 const API_ENDPOINT = "https://api.pubg.com/shards/steam";
 const MATCHES_ENDPOINT = `${API_ENDPOINT}/matches`;
 const PLAYERS_ENDPOINT = `${API_ENDPOINT}/players`;
-const PUBG_API_KEY = process.env.PUBG_API_KEY;
+const PUBG_API_KEY = process.env.REACT_APP_PUBG_API_KEY;
 
 export const getMatchData = (matchId) => {
   return fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
