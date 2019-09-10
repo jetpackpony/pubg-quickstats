@@ -1,4 +1,4 @@
-import R from 'ramda';
+import * as R from 'ramda';
 import fetch from 'isomorphic-unfetch';
 
 const API_ENDPOINT = "https://api.pubg.com/shards/steam";
