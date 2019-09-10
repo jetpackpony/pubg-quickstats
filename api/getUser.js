@@ -7,4 +7,4 @@ const getUser = (userName) => (
     ? users[userName]
     : null
 );
-module.exports = getUser;
+export default getUser;

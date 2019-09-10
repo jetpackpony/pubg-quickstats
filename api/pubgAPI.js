@@ -1,10 +1,12 @@
-const R = require('ramda');
-const fetch = require('node-fetch');
+import R from 'ramda';
+import fetch from 'isomorphic-unfetch';
+
 const API_ENDPOINT = "https://api.pubg.com/shards/steam";
 const MATCHES_ENDPOINT = `${API_ENDPOINT}/matches`;
 const PLAYERS_ENDPOINT = `${API_ENDPOINT}/players`;
+const PUBG_API_KEY = process.env.PUBG_API_KEY;
 
-const getMatchData = (matchId) => {
+export const getMatchData = (matchId) => {
   return fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
     method: "get",
     headers: {
@@ -15,24 +17,24 @@ const getMatchData = (matchId) => {
     .catch((err) => console.log("ERROR: " + err));
 };
 
-const getPlayerData = (playerID) => {
+export const getPlayerData = (playerID) => {
   return fetch(`${PLAYERS_ENDPOINT}/${playerID}`, {
     method: "get",
     headers: {
       "Accept": "application/vnd.api+json",
-      "Authorization": `Bearer ${process.env.PUBG_API_KEY}`
+      "Authorization": `Bearer ${PUBG_API_KEY}`
     }
   })
     .then((data) => data.json())
     .catch((err) => console.log("ERROR: " + err));
 };
 
-const getPlayersMatches = (playerID) => {
+export const getPlayersMatches = (playerID) => {
   return getPlayerData(playerID)
     .then((json) => json.data.relationships.matches.data)
 };
 
-const pluckMatchData = (matchData, playerID) => {
+export const pluckMatchData = (matchData, playerID) => {
   const res = {
     id: matchData.data.id,
     attributes: matchData.data.attributes,
@@ -41,11 +43,4 @@ const pluckMatchData = (matchData, playerID) => {
     }, matchData.included)
   };
   return res;
-};
-
-module.exports = {
-  getMatchData,
-  getPlayerData,
-  getPlayersMatches,
-  pluckMatchData
 };
