@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router';
 import fetch from 'isomorphic-unfetch';
+import getUser from '../../api/getUser';
 
 const User = ({ user }) => {
   const router = useRouter();
+
+  if (!user) {
+    return (<div>No such user</div>);
+  }
 
   return (
     <>
@@ -10,19 +15,20 @@ const User = ({ user }) => {
       matches:
       {
         user.matches.map((m) => (
-          <div>Match</div>
+          <div>Match {m}</div>
         ))
       }
     </>
   );
 };
 
-User.getInitialProps = async ({ query }) => {
-  const res = await fetch(`http://localhost:5000/users/${query.userName}`);
-  const json = await res.json();
-  console.log(json);
-
-  return { user: json };
+User.getInitialProps = async ({ query: { userName } }) => {
+  const user = getUser(userName);
+  if (user && user.id) {
+    return { user: { userName: userName, matches: [1,2,3]}};
+  } else {
+    return { user: null };
+  }
 };
 
 export default User;
