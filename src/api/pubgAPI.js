@@ -13,7 +13,7 @@ export const getMatchData = (matchId) => {
     }
   })
     .then((data) => data.json())
-    .catch((err) => console.log("ERROR: " + err));
+    .catch((err) => { console.log("Fetch ERROR: " + err); return null; });
 };
 
 export const getPlayerData = (playerID) => {
