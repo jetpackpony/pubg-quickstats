@@ -4,7 +4,7 @@ import getUser from '../../api/getUser';
 import { getPlayerData, getMatchData, pluckMatchData } from '../../api/pubgAPI';
 import testPlayerData from './getPlayerData-test-data.json';
 import testMatchesData from './getMatchData-plucked.json';
-import Match from './Match';
+import User from './User';
 
 const UserContainer = ({ match: { params: { username}}}) => {
   const [matchIds, setMatchIds] = useState([]);
@@ -48,35 +48,6 @@ const UserContainer = ({ match: { params: { username}}}) => {
       username={username}
       matches={matches}
     />
-  );
-};
-
-const User = ({
-  username,
-  matches
-}) => {
-  console.log(matches);
-  return (
-    <>
-      <h1>{username}</h1>
-      <ul>
-        {
-          matches.map((m) => (
-            <li key={m.id}>
-              {
-                (m.success)
-                  ? (
-                    <Match matchData={m.matchData} />
-                  )
-                  : (
-                    <div>Failed to load: {m.id}</div>
-                  )
-              }
-            </li>
-          ))
-        }
-      </ul>
-    </>
   );
 };
 
