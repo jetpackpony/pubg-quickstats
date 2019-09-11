@@ -1,3 +1,16 @@
+.box {
+  font-size: 16px;
+  padding: .5em 1em;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px -1px rgba(117,117,117,1);
+  border-left: 5px solid #c3c3c3;
+  background-color: #f6f6f6;
+}
+.failed {
+  color: #999999;
+  border-left: initial;
+}
+
 .match {
   display: grid;
   grid-template-columns: 7em 5em 5em 8em;
@@ -8,14 +21,8 @@
     "time     kill_place assists longest_kill";
   grid-auto-flow: column;
   justify-content: space-between;
-  font-size: 16px;
   row-gap: .5em;
   column-gap: 1em;
-  padding: .5em 1em;
-  border-radius: 3px;
-  box-shadow: 1px 1px 5px -1px rgba(117,117,117,1);
-  border-left: 5px solid #c3c3c3;
-  background-color: #f6f6f6;
 }
 
 .match.top10 {

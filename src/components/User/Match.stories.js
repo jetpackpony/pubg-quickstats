@@ -9,14 +9,14 @@ import testMatchesData from './getMatchData-plucked.json';
 
 storiesOf('Match', module)
   .add('successful load', () => (
-    <Match matchData={testMatchesData[1].matchData} />
+    <Match match={testMatchesData[1]} />
   ))
   .add('top 10', () => (
-    <Match matchData={testMatchesData[2].matchData} />
+    <Match match={testMatchesData[2]} />
   ))
   .add('chicken dinner', () => (
-    <Match matchData={testMatchesData[3].matchData} />
+    <Match match={testMatchesData[3]} />
   ))
   .add('failed to load', () => (
-    <Match matchData={testMatchesData[4].matchData} />
+    <Match match={testMatchesData[4]} />
   ))

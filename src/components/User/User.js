@@ -14,15 +14,7 @@ const User = ({
         {
           matches.map((m) => (
             <li key={m.id}>
-              {
-                (m.success)
-                  ? (
-                    <Match matchData={m.matchData} />
-                  )
-                  : (
-                    <div>Failed to load: {m.id}</div>
-                  )
-              }
+              <Match match={m} />
             </li>
           ))
         }

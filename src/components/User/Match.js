@@ -12,9 +12,17 @@ const mapNames = {
 };
 const getMapName = (id) => mapNames[id];
 
-const Match = ({ matchData }) => {
+const Match = ({ match: { success, id, matchData } }) => {
+  if (!success) {
+    return (
+      <div className={[styles.box, styles.failed].join(" ")}>
+        Failed to load: {id}
+      </div>
+    );
+  }
   const place = matchData.playerData.attributes.stats.winPlace;
   const st = [
+    styles.box,
     styles.match,
     (place <= 10 && place > 1)
       ? styles.top10
