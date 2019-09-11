@@ -32,11 +32,8 @@ const Match = ({ match: { success, id, matchData } }) => {
   ].join(" ");
   return (
     <div className={st}>
-      <div>
+      <div className={styles.mapCell}>
         {getMapName(matchData.attributes.mapName)}
-      </div>
-      <div>
-        {moment(matchData.attributes.createdAt).fromNow()}
       </div>
       <div>
         {moment(matchData.attributes.createdAt).format("H:mm")}
