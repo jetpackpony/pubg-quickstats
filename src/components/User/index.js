@@ -4,6 +4,7 @@ import getUser from '../../api/getUser';
 import { getPlayerData, getMatchData, pluckMatchData } from '../../api/pubgAPI';
 import testPlayerData from './getPlayerData-test-data.json';
 import testMatchesData from './getMatchData-plucked.json';
+import Match from './Match';
 
 const UserContainer = ({ match: { params: { username}}}) => {
   const [matchIds, setMatchIds] = useState([]);
@@ -65,38 +66,7 @@ const User = ({
               {
                 (m.success)
                   ? (
-                    <>
-                    <div>
-                      {m.matchData.attributes.createdAt}
-                    </div>
-                    <div>
-                      {m.matchData.attributes.mapName}
-                    </div>
-                    <div>
-                      Place: {m.matchData.playerData.attributes.stats.winPlace}
-                    </div>
-                    <div>
-                      Kills: {m.matchData.playerData.attributes.stats.kills}
-                    </div>
-                    <div>
-                      Headshot Kills: {m.matchData.playerData.attributes.stats.headshotKills}
-                    </div>
-                    <div>
-                      Kill Place: {m.matchData.playerData.attributes.stats.killPlace}
-                    </div>
-                    <div>
-                      Knocks: {m.matchData.playerData.attributes.stats.DBNOs}
-                    </div>
-                    <div>
-                      Assists: {m.matchData.playerData.attributes.stats.assists}
-                    </div>
-                    <div>
-                      Damage: {Math.round(m.matchData.playerData.attributes.stats.damageDealt)}
-                    </div>
-                    <div>
-                      Longest Kill: {Math.round(m.matchData.playerData.attributes.stats.longestKill)} m
-                    </div>
-                    </>
+                    <Match matchData={m.matchData} />
                   )
                   : (
                     <div>Failed to load: {m.id}</div>
