@@ -38,7 +38,7 @@ const User = ({
   const groupedMatches = groupMatchesPerDate(matches);
   console.log(groupedMatches);
   return (
-    <>
+    <section className={styles.container}>
       <h1>{username}</h1>
       {
         groupedMatches.map(({ date, matches: ms }, i) => (
@@ -56,7 +56,7 @@ const User = ({
           </section>
         ))
       }
-    </>
+    </section>
   );
 };
 
