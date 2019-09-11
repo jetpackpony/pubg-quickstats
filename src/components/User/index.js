@@ -17,10 +17,10 @@ const UserContainer = ({ match: { params: { username}}}) => {
     if (process.env.NODE_ENV === "production") {
       getPlayerData(user.id)
         .then((res) => {
-          setMatchIds(R.take(20, res.data.relationships.matches.data));
+          setMatchIds(res.data.relationships.matches.data);
         });
     } else {
-      setTimeout(() => setMatchIds(R.take(20, testPlayerData.data.relationships.matches.data)), 0);
+      setTimeout(() => setMatchIds(testPlayerData.data.relationships.matches.data), 0);
     }
   }
 
