@@ -41,7 +41,7 @@ const Match = ({ match: { success, id, matchData } }) => {
 
       <div className={styles.placeCell}>
         <span className={styles.label}>Place</span>
-        <span className={styles.value}>
+        <span className={[styles.value, styles.placeValue].join(" ")}>
           {place}
         </span>
       </div>
