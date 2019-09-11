@@ -147,7 +147,7 @@
             "vehicleDestroys": 0,
             "walkDistance": 889.886963,
             "weaponsAcquired": 5,
-            "winPlace": 28
+            "winPlace": 8
           },
           "actor": "",
           "shardId": "steam"
@@ -200,12 +200,16 @@
             "vehicleDestroys": 0,
             "walkDistance": 3165.79688,
             "weaponsAcquired": 7,
-            "winPlace": 14
+            "winPlace": 1
           },
           "actor": ""
         }
       }
     }
+  },
+  {
+    "success": false,
+    "id": "5f4c21e1-5f4c21e1-5f4c21e1-9a9c-d6d64e5e302c"
   },
   {
     "success": true,
