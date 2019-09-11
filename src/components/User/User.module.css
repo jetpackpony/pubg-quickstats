@@ -8,3 +8,7 @@
 .matchList > li {
   margin-bottom: .5em;
 }
+
+.dateHeader {
+  margin: 2em 0 1em 0;
+}
