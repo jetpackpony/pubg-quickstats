@@ -1,0 +1,53 @@
+.match {
+  display: grid;
+  grid-template-columns: 7em 5em 5em 8em;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: 
+    "map      place      kills   headshots"
+    "time_ago place      knocks  damage"
+    "time     kill_place assists longest_kill";
+  grid-auto-flow: column;
+  justify-content: space-between;
+  font-size: 16px;
+  row-gap: .5em;
+  column-gap: 1em;
+  padding: .5em 1em;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px -1px rgba(117,117,117,1);
+  border-left: 5px solid #c3c3c3;
+  background-color: #f6f6f6;
+}
+
+.match.top10 {
+  background-color: #dce4cf;
+  border-left: 5px solid #6b8d40;
+}
+
+.match.winner {
+  background-color: #c9e8ff;
+  border-left: 5px solid #0089ef;
+}
+
+.match .placeCell {
+  grid-area: place;
+  font-size: 24px;
+}
+
+.match .placeCell > .value {
+  font-size: 22px;
+}
+
+.match > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match .label {
+  font-size: 12px;
+  color: #696969;
+}
+
+.match .value {
+  font-size: 16px;
+}
