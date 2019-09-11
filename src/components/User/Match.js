@@ -21,12 +21,15 @@ const Match = ({ match: { success, id, matchData } }) => {
     );
   }
   const place = matchData.playerData.attributes.stats.winPlace;
+  const killPlace = matchData.playerData.attributes.stats.killPlace;
   const st = [
     styles.box,
     styles.match,
-    (place <= 10 && place > 1)
-      ? styles.top10
-      : (place === 1)
+    (killPlace <= 5)
+      ? styles.killTop5
+      : (place <= 10 && place > 1)
+        ? styles.top10
+        : (place === 1)
           ? styles.winner
           : ""
   ].join(" ");
@@ -47,8 +50,8 @@ const Match = ({ match: { success, id, matchData } }) => {
       </div>
       <div>
         <span className={styles.label}>Kill Place</span>
-        <span className={styles.value}>
-          {matchData.playerData.attributes.stats.killPlace}
+        <span className={[styles.value, styles.killPlaceValue].join(" ")}>
+          {killPlace}
         </span>
       </div>
 

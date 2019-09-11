@@ -29,8 +29,6 @@
   background-color: #dce4cf;
   border-left: 5px solid #6b8d40;
 }
-
-
 .match.top10 .placeValue {
   color: #5e8032;
   font-weight: 500;
@@ -40,12 +38,19 @@
   background-color: #c9e8ff;
   border-left: 5px solid #0089ef;
 }
-
 .match.winner .placeValue {
   color: #0089ef;
   font-weight: 500;
 }
 
+.match.killTop5 {
+  background-color: #e8c5c5;
+  border-left: 5px solid #d35d5d;
+}
+.match.killTop5 .killPlaceValue {
+  color: #d35d5d;
+  font-weight: 500;
+}
 
 .match .mapCell {
   grid-area: map;

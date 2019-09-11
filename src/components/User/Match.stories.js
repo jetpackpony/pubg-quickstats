@@ -17,6 +17,9 @@ storiesOf('Match', module)
   .add('chicken dinner', () => (
     <Match match={testMatchesData[3]} />
   ))
+  .add('kill top 5', () => (
+    <Match match={testMatchesData[1]} />
+  ))
   .add('failed to load', () => (
     <Match match={testMatchesData[4]} />
   ))
