@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.date {
+  width: 45em;
+}
+
 .matchList {
   list-style: none;
   margin: 0;

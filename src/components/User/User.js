@@ -21,7 +21,7 @@ const groupMatchesPerDate = (matches) => {
         res[res.length - 1].matches.push(m)
       } else {
         res.push({
-          date: "Today",
+          date: "",
           matches: [m]
         });
       }
@@ -42,7 +42,7 @@ const User = ({
       <h1>{username}</h1>
       {
         groupedMatches.map(({ date, matches: ms }, i) => (
-          <section key={i}>
+          <section key={i} className={styles.date}>
             <h2 className={styles.dateHeader}>{date}</h2>
             <ul className={styles.matchList}>
               {
