@@ -9,7 +9,7 @@ import testMatchesData from './getMatchData-plucked.json';
 
 storiesOf('Match', module)
   .add('successful load', () => (
-    <Match match={testMatchesData[1]} />
+    <Match match={testMatchesData[0]} />
   ))
   .add('top 10', () => (
     <Match match={testMatchesData[2]} />
