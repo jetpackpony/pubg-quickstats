@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 
 const API_ENDPOINT = "https://api.pubg.com/shards/steam";
-const MATCHES_ENDPOINT = `${API_ENDPOINT}/matches`;
+const MATCHES_ENDPOINT = `https://cors-anywhere.herokuapp.com/${API_ENDPOINT}/matches`;
 const PLAYERS_ENDPOINT = `${API_ENDPOINT}/players`;
 const PUBG_API_KEY = process.env.REACT_APP_PUBG_API_KEY;
 

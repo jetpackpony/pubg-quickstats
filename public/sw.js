@@ -6,7 +6,7 @@ if (workbox) {
   console.log(`Yay! Workbox is loaded! 🎉`);
 
   workbox.routing.registerRoute(
-    /https:\/\/api\.pubg\.com\/shards\/steam\/matches.*/,
+    /.*api\.pubg\.com\/shards\/steam\/matches.*/,
     new workbox.strategies.CacheFirst()
   );
 
