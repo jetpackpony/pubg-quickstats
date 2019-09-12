@@ -79,3 +79,7 @@
 .match .value {
   font-size: 16px;
 }
+
+.zeroValue {
+  color: #696969;
+}

@@ -11,6 +11,7 @@ const mapNames = {
   "Savage_Main": "Sanhok"
 };
 const getMapName = (id) => mapNames[id];
+const replaceZeros = (val) => (val > 0) ? val : (<span className={styles.zeroValue}>-</span>);
 
 const Match = ({ match: { success, id, matchData } }) => {
   if (!success) {
@@ -20,8 +21,11 @@ const Match = ({ match: { success, id, matchData } }) => {
       </div>
     );
   }
-  const place = matchData.playerData.attributes.stats.winPlace;
-  const killPlace = matchData.playerData.attributes.stats.killPlace;
+  const {
+    winPlace: place, killPlace,
+    kills, DBNOs, assists,
+    damageDealt, headshotKills, longestKill
+  } = matchData.playerData.attributes.stats;
   const st = [
     styles.box,
     styles.match,
@@ -58,38 +62,38 @@ const Match = ({ match: { success, id, matchData } }) => {
       <div>
         <span className={styles.label}>Kills</span>
         <span className={styles.value}>
-          {matchData.playerData.attributes.stats.kills}
+          {replaceZeros(kills)}
         </span>
       </div>
       <div>
         <span className={styles.label}>Knocks</span>
         <span className={styles.value}>
-          {matchData.playerData.attributes.stats.DBNOs}
+          {replaceZeros(DBNOs)}
         </span>
       </div>
       <div>
         <span className={styles.label}>Assists</span>
         <span className={styles.value}>
-          {matchData.playerData.attributes.stats.assists}
+          {replaceZeros(assists)}
         </span>
       </div>
 
       <div>
         <span className={styles.label}>Damage</span>
         <span className={styles.value}>
-          {Math.round(matchData.playerData.attributes.stats.damageDealt)}
+          {replaceZeros(Math.round(damageDealt))}
         </span>
       </div>
       <div>
         <span className={styles.label}>Headshot Kills</span>
         <span className={styles.value}>
-          {matchData.playerData.attributes.stats.headshotKills}
+          {replaceZeros(headshotKills)}
         </span>
       </div>
       <div>
         <span className={styles.label}>Longest Kill</span>
         <span className={styles.value}>
-          {Math.round(matchData.playerData.attributes.stats.longestKill)}
+          {replaceZeros(Math.round(longestKill))}
         </span>
       </div>
     </div>
