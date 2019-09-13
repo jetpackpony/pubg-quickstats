@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import Match from './Match';
-import testMatchesData from './getMatchData-plucked.json';
+import testMatchesData from './test-matches.json';
 
 storiesOf('Match', module)
   .add('successful load', () => (

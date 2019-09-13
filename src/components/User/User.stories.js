@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import User from './User';
-import testMatchesData from './getMatchData-plucked.json';
+import testMatchesData from './test-matches.json';
 
 storiesOf('User', module)
   .add('normal', () => (

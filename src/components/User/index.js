@@ -1,46 +1,28 @@
 import React, { useState } from 'react';
-import * as R from 'ramda';
-import getUser from '../../api/getUser';
-import { getPlayerData, getMatchData, pluckMatchData } from '../../api/pubgAPI';
-import testPlayerData from './getPlayerData-test-data.json';
-import testMatchesData from './getMatchData-plucked.json';
 import User from './User';
+import { getPage } from '../../api/api';
 
 const UserContainer = ({ match: { params: { username}}}) => {
-  const [matchIds, setMatchIds] = useState([]);
+  const [nextLink, setNextLink] = useState("");
   const [matches, setMatches] = useState([]);
-  const user = getUser(username);
-  if (!user) {
-    return <div>No user fround for "{username}"</div>
-  }
-  if (matchIds.length === 0) {
-    if (process.env.NODE_ENV === "production") {
-      getPlayerData(user.id)
-        .then((res) => {
-          setMatchIds(res.data.relationships.matches.data);
-        });
-    } else {
-      setTimeout(() => setMatchIds(testPlayerData.data.relationships.matches.data), 0);
-    }
-  }
 
-  if (matchIds.length > 0 && matches.length === 0) {
-    ((process.env.NODE_ENV === "production")
-      ? Promise.all(
-        R.pluck("id", matchIds).map(async (id) => {
-          const res = await getMatchData(id);
-          return {
-            success: (res) ? true : false,
-            id,
-            matchData: (res) ? pluckMatchData(res, user.id) : null
-          };
-        })
-      )
-      : Promise.resolve(testMatchesData)
-    )
-    .then((res) => {
-      setMatches(res);
-    })
+  if (matches.length === 0) {
+    getPage(username, nextLink)
+      .then((res) => {
+        if (res.errors.length > 0) {
+          console.log("Error while making a request", res.errors);
+        } else {
+          const matches = res.data.map((m) => ({
+            success: true,
+            id: m.id,
+            matchData: m
+          }));
+          console.log("Mathces:", matches);
+          console.log("Next link:", res.links.next);
+          setMatches(matches);
+          setNextLink(res.links.next);
+        }
+      });
   }
 
   return (
