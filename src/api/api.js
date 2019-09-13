@@ -1,4 +1,8 @@
-const API_ENDPOINT = process.env.API_ENDPOINT || "http://localhost:4000";
+const apiAddress = 
+  (process.env.REACT_APP_API_ADDRESS)
+    ? process.env.REACT_APP_API_ADDRESS
+    : `http://${window.location.hostname}:4000/`;
+
 export const getPage = async (userName, link = "") => {
   if (link === null) {
     return null;
@@ -7,7 +11,7 @@ export const getPage = async (userName, link = "") => {
     ((link === "")
       ? `/users/${userName}/matches?cursor=`
       : link),
-    API_ENDPOINT
+    apiAddress
   );
 
   return fetch(url, {
