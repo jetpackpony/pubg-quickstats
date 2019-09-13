@@ -1,5 +1,6 @@
 const R = require('ramda');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 4000;
 const getUser = require('./getUser');
@@ -8,6 +9,8 @@ const APIError = require('./APIError');
 const PAGE_LIMIT = 20;
 
 console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`);
+
+app.use(cors());
 
 app.get("/users/:userName/matches", (req, res) => {
   res.set('Content-Type', 'application/vnd.api+json');
