@@ -4,21 +4,34 @@ const API_ENDPOINT = "https://api.pubg.com/shards/steam";
 const MATCHES_ENDPOINT = `${API_ENDPOINT}/matches`;
 const PLAYERS_ENDPOINT = `${API_ENDPOINT}/players`;
 const APIError = require('./APIError');
-const testMatches = require('./test-match-list.json');
 const useDummyData = process.env.NODE_ENV !== "production" && true;
+const testMatches = require('./test-match-list.json');
+const testMatchData = require('./test-match-data.json');
 
 if (useDummyData) console.log("Using dummy data for the API");
 else console.log("Using the real API");
 
 const getMatchData = (matchId) => {
-  return fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
-    method: "get",
-    headers: {
-      "Accept": "application/vnd.api+json"
-    }
-  })
-    .then((data) => data.json())
-    .catch((err) => console.log("ERROR: " + err));
+  return (useDummyData)
+    ? Promise.resolve(testMatchData)
+    : fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
+      method: "get",
+      headers: {
+        "Accept": "application/vnd.api+json"
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new APIError({
+            status: res.status,
+            title: `Couldn't retrieve match data from PUBG API.
+            Trying to retrieve: ${res.url}
+            Got statusText: \n ${res.statusText}`
+          });
+        }
+        return res;
+      })
+      .then((data) => data.json())
 };
 
 const getPlayerData = (playerID) => {

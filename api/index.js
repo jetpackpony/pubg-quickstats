@@ -1,8 +1,9 @@
+const R = require('ramda');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const getUser = require('./getUser');
-const { getPlayersMatches } = require('./pubgAPI');
+const { getPlayersMatches, getMatchData, pluckMatchData } = require('./pubgAPI');
 const APIError = require('./APIError');
 
 console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`);
@@ -12,7 +13,27 @@ app.get("/users/:userName/matches", (req, res) => {
 
   getUser(req.params.userName)
     .then((user) => {
-      return getPlayersMatches(user.id);
+      return getPlayersMatches(user.id)
+        .then((matches) => {
+          const ids = R.pluck("id")(matches);
+          return R.take(20, ids);
+        })
+        .then((ids) => {
+          return Promise.all(ids.map((id) => getMatchData(id)));
+        })
+        .then((matchData) => {
+          return matchData.map((m) => pluckMatchData(m, user.id));
+        })
+        .then((matches) => {
+          return matches.map((m) => ({
+            "type": "matches",
+            "id": m.id,
+            "attributes": {
+              ...m.attributes,
+              playerStats: m.playerData.attributes.stats
+            }
+          }));
+        });
     })
     .then((matches) => {
       res.status(200);
