@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const getUser = require('./getUser');
-const { getPlayersMatches, getMatchData, pluckMatchData } = require('./pubgAPI');
+const { getPlayersMatches, getPluckedMatchData } = require('./pubgAPI');
 const APIError = require('./APIError');
 
 console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`);
@@ -15,14 +15,12 @@ app.get("/users/:userName/matches", (req, res) => {
     .then((user) => {
       return getPlayersMatches(user.id)
         .then((matches) => {
-          const ids = R.pluck("id")(matches);
-          return R.take(20, ids);
+          return R.pluck("id")(matches);
         })
         .then((ids) => {
-          return Promise.all(ids.map((id) => getMatchData(id)));
-        })
-        .then((matchData) => {
-          return matchData.map((m) => pluckMatchData(m, user.id));
+          return Promise.all(
+            ids.map((id) => getPluckedMatchData(id, user.id))
+          );
         })
         .then((matches) => {
           return matches.map((m) => ({

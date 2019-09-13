@@ -6,32 +6,30 @@ const PLAYERS_ENDPOINT = `${API_ENDPOINT}/players`;
 const APIError = require('./APIError');
 const useDummyData = process.env.NODE_ENV !== "production" && true;
 const testMatches = require('./test-match-list.json');
-const testMatchData = require('./test-match-data.json');
+const testMatchData = require('./test-matches-data.json');
 
 if (useDummyData) console.log("Using dummy data for the API");
 else console.log("Using the real API");
 
 const getMatchData = (matchId) => {
-  return (useDummyData)
-    ? Promise.resolve(testMatchData)
-    : fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
-      method: "get",
-      headers: {
-        "Accept": "application/vnd.api+json"
-      }
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new APIError({
-            status: res.status,
-            title: `Couldn't retrieve match data from PUBG API.
+  return fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
+    method: "get",
+    headers: {
+      "Accept": "application/vnd.api+json"
+    }
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new APIError({
+          status: res.status,
+          title: `Couldn't retrieve match data from PUBG API.
             Trying to retrieve: ${res.url}
             Got statusText: \n ${res.statusText}`
-          });
-        }
-        return res;
-      })
-      .then((data) => data.json())
+        });
+      }
+      return res;
+    })
+    .then((data) => data.json())
 };
 
 const getPlayerData = (playerID) => {
@@ -64,19 +62,32 @@ const getPlayersMatches = (playerID) => {
 };
 
 const pluckMatchData = (matchData, playerID) => {
-  const res = {
+  return Promise.resolve({
     id: matchData.data.id,
     attributes: matchData.data.attributes,
     playerData: R.find((p) => {
       return p.type === "participant" && p.attributes.stats.playerId === playerID;
     }, matchData.included)
-  };
-  return res;
+  });
+};
+
+const getPluckedMatchData = async (matchId, playerID) => {
+  if (useDummyData) {
+    const res = testMatchData[matchId];
+    if (!res) {
+      throw new APIError({
+        status: 404,
+        title: `Couldn't load match data for: ${matchId}`
+      });
+    }
+    return res;
+  }
+  return pluckMatchData(await getMatchData(matchId), playerID);
 };
 
 module.exports = {
   getMatchData,
   getPlayerData,
   getPlayersMatches,
-  pluckMatchData
+  getPluckedMatchData
 };
