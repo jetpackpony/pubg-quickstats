@@ -5,11 +5,13 @@ const port = process.env.PORT || 4000;
 const getUser = require('./getUser');
 const { getPlayersMatches, getPluckedMatchData } = require('./pubgAPI');
 const APIError = require('./APIError');
+const PAGE_LIMIT = 20;
 
 console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`);
 
 app.get("/users/:userName/matches", (req, res) => {
   res.set('Content-Type', 'application/vnd.api+json');
+  const cursor = req.query.cursor || "";
 
   getUser(req.params.userName)
     .then((user) => {
@@ -18,12 +20,20 @@ app.get("/users/:userName/matches", (req, res) => {
           return R.pluck("id")(matches);
         })
         .then((ids) => {
+          const cursorIndex = R.indexOf(cursor, ids);
+          if (cursorIndex < 0) {
+            return R.take(PAGE_LIMIT, ids);
+          } else {
+            return R.slice(cursorIndex + 1, cursorIndex + 1 + PAGE_LIMIT, ids);
+          }
+        })
+        .then((ids) => {
           return Promise.all(
             ids.map((id) => getPluckedMatchData(id, user.id))
           );
         })
         .then((matches) => {
-          return matches.map((m) => ({
+          const data = matches.map((m) => ({
             "type": "matches",
             "id": m.id,
             "attributes": {
@@ -31,14 +41,21 @@ app.get("/users/:userName/matches", (req, res) => {
               playerStats: m.playerData.attributes.stats
             }
           }));
+          const lastMatch = matches[matches.length - 1];
+          const lastId = lastMatch && lastMatch.id;
+          const nextLink = (lastId) ? `${req.path}?cursor=${lastId}` : null;
+          const links = {
+            "next": nextLink
+          };
+          return { data, links };
         });
     })
-    .then((matches) => {
+    .then(({ data, links }) => {
       res.status(200);
       res.send({
-        data: matches,
-        errors: [],
-        links: {}
+        data,
+        links,
+        errors: []
       });
     })
     .catch((err) => {
@@ -57,7 +74,6 @@ app.get("/users/:userName/matches", (req, res) => {
       });
     });
 
-    // const cursor = req.query.cursor || "";
     // const { data, links }
     // data = [
     //   {
