@@ -7,6 +7,9 @@ const APIError = require('./APIError');
 const testMatches = require('./test-match-list.json');
 const useDummyData = process.env.NODE_ENV !== "production" && true;
 
+if (useDummyData) console.log("Using dummy data for the API");
+else console.log("Using the real API");
+
 const getMatchData = (matchId) => {
   return fetch(`${MATCHES_ENDPOINT}/${matchId}`, {
     method: "get",

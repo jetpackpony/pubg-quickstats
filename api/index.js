@@ -5,6 +5,8 @@ const getUser = require('./getUser');
 const { getPlayersMatches } = require('./pubgAPI');
 const APIError = require('./APIError');
 
+console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`);
+
 app.get("/users/:userName/matches", (req, res) => {
   res.set('Content-Type', 'application/vnd.api+json');
 
