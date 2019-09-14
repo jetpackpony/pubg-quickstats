@@ -44,11 +44,11 @@
 }
 
 .match.killTop5 {
-  background-color: #e8c5c5;
-  border-left: 5px solid #d35d5d;
+  background-color: #f6e3a4;
+  border-left: 5px solid #D4AF37;
 }
 .match.killTop5 .killPlaceValue {
-  color: #d35d5d;
+  color: #c19c26;
   font-weight: 500;
 }
 
