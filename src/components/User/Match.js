@@ -21,7 +21,6 @@ const Match = ({ match: { success, id, matchData } }) => {
       </div>
     );
   }
-  console.log("Match Data: ", matchData);
   const {
     winPlace: place, killPlace,
     kills, DBNOs, assists,
