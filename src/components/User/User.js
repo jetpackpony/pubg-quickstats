@@ -2,6 +2,8 @@ import React from 'react';
 import Match from './Match';
 import styles from './User.module.css';
 import moment from 'moment';
+import Button from '../Button';
+import Spinner from '../Spinner';
 
 const groupMatchesPerDate = (matches) => {
   return matches.reduce((res, m) => {
@@ -32,11 +34,12 @@ const groupMatchesPerDate = (matches) => {
 
 const User = ({
   username,
-  matches
+  matches,
+  loadMore,
+  isLoading = false,
+  isLastPage = false
 }) => {
-  console.log(matches);
   const groupedMatches = groupMatchesPerDate(matches);
-  console.log(groupedMatches);
   return (
     <section className={styles.container}>
       <h1>{username}</h1>
@@ -56,6 +59,15 @@ const User = ({
           </section>
         ))
       }
+      <section className={styles.loadMore}>
+        {
+          (isLoading)
+            ? <Spinner />
+            : (!isLastPage)
+              ? <Button onClick={loadMore}>Load More</Button>
+              : null
+        }
+      </section>
     </section>
   );
 };
