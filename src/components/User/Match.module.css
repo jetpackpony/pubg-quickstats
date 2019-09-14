@@ -80,6 +80,12 @@
   font-size: 16px;
 }
 
+.killValue {
+  font-weight: 500;
+}
+
 .zeroValue {
   color: #696969;
+  font-size: initial;
+  font-weight: initial;
 }

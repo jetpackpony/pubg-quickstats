@@ -62,7 +62,7 @@ const Match = ({ match: { success, id, matchData } }) => {
 
       <div>
         <span className={styles.label}>Kills</span>
-        <span className={styles.value}>
+        <span className={[styles.value, styles.killValue].join(" ")}>
           {replaceZeros(kills)}
         </span>
       </div>
