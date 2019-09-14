@@ -11,7 +11,7 @@ const mapNames = {
   "Savage_Main": "Sanhok"
 };
 const getMapName = (id) => mapNames[id];
-const replaceZeros = (val) => (val > 0) ? val : (<span className={styles.zeroValue}>-</span>);
+export const replaceZeros = (val) => (val > 0) ? val : (<span className={styles.zeroValue}>-</span>);
 
 const Match = ({ match: { success, id, matchData } }) => {
   if (!success) {

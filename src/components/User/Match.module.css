@@ -71,12 +71,12 @@
   align-items: center;
 }
 
-.match .label {
+.label {
   font-size: 12px;
   color: #696969;
 }
 
-.match .value {
+.value {
   font-size: 16px;
 }
 
