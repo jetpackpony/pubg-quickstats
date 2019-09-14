@@ -24,5 +24,21 @@
 }
 
 .dateHeader {
+  display: flex;
+  justify-content: space-between;
   margin: 2em 0 1em 0;
+}
+
+.dateHeader h2 {
+  margin: 0;
+}
+
+.dateStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 1em;
+}
+
+.dateStats div {
+  justify-self: center;
 }
