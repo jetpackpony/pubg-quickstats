@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.loadMore {
+  margin: 2rem;
+}
+
 .date {
   width: 45em;
 }

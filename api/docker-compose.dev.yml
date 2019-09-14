@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    container_name: pubg
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 4000:4000
+      - 9229:9229
+    command: npm run start:dev
+    env_file:
+      - .env

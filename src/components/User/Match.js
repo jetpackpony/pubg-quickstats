@@ -21,11 +21,12 @@ const Match = ({ match: { success, id, matchData } }) => {
       </div>
     );
   }
+  console.log("Match Data: ", matchData);
   const {
     winPlace: place, killPlace,
     kills, DBNOs, assists,
     damageDealt, headshotKills, longestKill
-  } = matchData.playerData.attributes.stats;
+  } = matchData.attributes.playerStats;
   const st = [
     styles.box,
     styles.match,
